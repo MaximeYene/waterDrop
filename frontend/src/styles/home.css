@@ -1,0 +1,26 @@
+.navbar-container{
+    margin: 0 2%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid;
+}
+.navbar-logo img{
+    width: 100px;
+    height: 100px;
+}
+.navbar-list{
+    width: 40%;
+    display: flex;
+    justify-content: space-between;
+    font-size: 24px;
+}
+.navbar-list-link{
+    text-decoration: none;
+    transition: 0.2;
+}
+.navbar-list-link:hover{
+    border-bottom: 1px solid;
+    transform: scale(1.1);
+}
+
