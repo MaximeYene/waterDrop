@@ -17,7 +17,7 @@
 }
 .navbar-list-link, .navbar-list-link-connection{
     text-decoration: none;
-    transition: 0.2;
+    transition: 0.2s;
 }
 .navbar-list-link:hover{
     border-bottom: 1px solid;
@@ -27,7 +27,6 @@
     padding: 0 4%;
     border: 1px solid;
     border-radius: 25px;
-    transition: 0.2;
 }
 .navbar-list-link-connection:hover{
     transform: scale(1.1);
@@ -44,6 +43,10 @@
 .homebody-presentation{
     text-align: center;
     border: 1px solid;
+    transition: 1.5s;
+}
+.homebody-presentation:hover{
+    transform: scale(1.05);
 }
 .homebody-link{
     text-decoration: none;
@@ -51,16 +54,17 @@
     padding: 1% 8%;
     border-radius: 25px;
     font-size: 20px;
-    transition: 0.2;
 }
-.homebody-link:hover{
-    transform: scale(1.1);
-}
+
+
 .homebody-image img{
     height: 600px;
     width: 600px;
+    transition: 1.5s;
 }
-
+.homebody-image img:hover{
+    transform: scale(1.05);
+}
 
 .footer-image{
     height: 100%;

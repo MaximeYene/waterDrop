@@ -1,10 +1,19 @@
 import Navbar from "../components/navbar";
+import Footer from "../components/footer";
+import Menu from "../components/menu";
 
 const Produits = () => {
     return (
         <div>
-            <Navbar />
-            <h1>Produits</h1>
+            <div>
+                <Navbar />
+            </div>
+            <div>
+                <Menu/>
+            </div>
+            <div>
+                <Footer />
+            </div>
         </div>
     )
 }
