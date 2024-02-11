@@ -11,7 +11,11 @@ const thingSchema=mongoose.Schema({
     },
     category:{
         type:String,
-        requierd:true
+        required:true
+    },
+    imageFile:{
+        type:String,
+        required:true
     }
 });
 

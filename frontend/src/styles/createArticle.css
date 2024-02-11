@@ -1,0 +1,18 @@
+.createArticle-container{
+    border: 1px solid;
+    margin: 7% 25%;
+}
+
+h2{
+    text-align: center;
+}
+
+form{
+    font-size: 20px;
+    margin-left: 1%;
+}
+
+input{
+    width: 96%;
+    line-height: 20px;
+}
