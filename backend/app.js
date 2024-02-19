@@ -1,9 +1,14 @@
 const express = require('express');
 const mongoose=require('mongoose');
 const multer=require('multer');
+const path = require('path');
+const  cors=require('cors');
 const thing = require('./models/thing');
 
 const app = express();
+
+app.use(cors());
+app.use(express.json());
 
 
 //Connexion à mongoDB
@@ -17,18 +22,17 @@ app.use((req, res) => {
    res.json({ message: 'Votre requête a bien été reçue !' }); 
 });
 
-//Creation du middleware pour l'upload des articles
-const upload=multer({dest: 'upload/'});
+const upload = multer({ dest: 'uploads/' });
 
 
 //Endpoint POST pour uploader un article dans la base de données
-app.post('api/uploadArticle',upload.single('imageFile'),async(req,res)=>{
+app.post('/api/uploadArticle',upload.single('imageFile'),async(req,res)=>{
   try{
     if(!req.file){
       return res.status(400).json({message:"Aucun fichier n'a été téléchargé"})
     }
     const {title, price, category}=req.body;
-    const imageFile=req.file;
+    const imageFile=req.file.path;
 
     const newArticle= new thing({
       title:title,
