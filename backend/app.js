@@ -22,7 +22,16 @@ app.use((req, res) => {
    res.json({ message: 'Votre requête a bien été reçue !' }); 
 });
 
-const upload = multer({ dest: 'uploads/' });
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/');
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  }
+});
+
+const upload = multer({ storage: storage });
 
 
 //Endpoint POST pour uploader un article dans la base de données
@@ -32,7 +41,7 @@ app.post('/api/uploadArticle',upload.single('imageFile'),async(req,res)=>{
       return res.status(400).json({message:"Aucun fichier n'a été téléchargé"})
     }
     const {title, price, category}=req.body;
-    const imageFile=req.file.path;
+    const imageFile=req.file.filename;
 
     const newArticle= new thing({
       title:title,
