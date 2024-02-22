@@ -1,30 +1,34 @@
 const express = require('express');
-const mongoose=require('mongoose');
-const multer=require('multer');
+const mongoose = require('mongoose');
+const multer = require('multer');
 const path = require('path');
-const  cors=require('cors');
-const thing = require('./models/thing');
+const cors = require('cors');
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
+// Connexion à MongoDB
+mongoose.connect('mongodb+srv://maximeyene:Y5991Jmoo@cluster0.bmpw4xk.mongodb.net/?retryWrites=true&w=majority', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+}).then(() => console.log('Connexion à MongoDB réussie !'))
+  .catch((err) => console.error('Connexion à MongoDB échouée :', err));
 
-//Connexion à mongoDB
-mongoose.connect('mongodb+srv://maximeyene:Y5991Jmoo@cluster0.bmpw4xk.mongodb.net/?retryWrites=true&w=majority',
-  { useNewUrlParser: true,
-    useUnifiedTopology: true })
-  .then(() => console.log('Connexion à MongoDB réussie !'))
-  .catch(() => console.log('Connexion à MongoDB échouée !'));
-
-app.use((req, res) => {
-   res.json({ message: 'Votre requête a bien été reçue !' }); 
+// Schéma du modèle pour l'article
+const ArticleSchema = new mongoose.Schema({
+  title: String,
+  category: String,
+  price: Number,
+  imageUrl: String // chemin de l'image enregistrée
 });
+
+const Article = mongoose.model('Article', ArticleSchema);
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'uploads/');
+    cb(null, 'uploads/'); // dossier pour sauvegarder les images
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname);
@@ -33,30 +37,33 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+// Endpoint POST pour ajouter un article
+app.post('/api/uploadArticle', upload.single('image'), async (req, res) => {
+  try {
+    const { title, category, price } = req.body;
+    const imageUrl = req.file.filename;
 
-//Endpoint POST pour uploader un article dans la base de données
-app.post('/api/uploadArticle',upload.single('imageFile'),async(req,res)=>{
-  try{
-    if(!req.file){
-      return res.status(400).json({message:"Aucun fichier n'a été téléchargé"})
-    }
-    const {title, price, category}=req.body;
-    const imageFile=req.file.filename;
-
-    const newArticle= new thing({
-      title:title,
-      price:price,
-      category:category,
-      imageFile:imageFile
-    });
-
+    const newArticle = new Article({ title, category, price, imageUrl });
     await newArticle.save();
-    res.status(201).json({message:"Article enregistré avec succès"});
-  }
-  catch(err){
+
+    res.status(201).json({ message: 'Article ajouté avec succès' });
+  } catch (err) {
     console.error(err);
-    return res.status(500).json({message:"Erreur lors du traitement de l'article"});
+    res.status(500).json({ message: 'Erreur lors de l\'ajout de l\'article' });
   }
-})
+});
+
+//Endpoint GET pour recupérer tous les articles de la base de données
+app.get('/api/importArticles', async (req, res) => {
+  try {
+    const randomArticles = await Article.find();
+    res.json(Article);
+  }catch(err){
+    console.error(err);
+    res.status(500).json({message:'Erreur lors de la récupération des articles'});
+  }
+});
+
+
 
 module.exports = app;
