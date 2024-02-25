@@ -56,8 +56,8 @@ app.post('/api/uploadArticle', upload.single('image'), async (req, res) => {
 //Endpoint GET pour recupérer tous les articles de la base de données
 app.get('/api/importArticles', async (req, res) => {
   try {
-    const randomArticles = await Article.find();
-    res.json(Article);
+    const articles = await Article.find();
+    res.json(articles);
   }catch(err){
     console.error(err);
     res.status(500).json({message:'Erreur lors de la récupération des articles'});
