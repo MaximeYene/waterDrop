@@ -1,0 +1,13 @@
+.ConnectionContainer{
+    display: flex;
+}
+
+.ImageConnection{
+    width: 450px;
+    height: 750px;
+}
+
+.LogoImg{
+    width: 100px;
+    height: 100px;
+}

@@ -65,5 +65,4 @@ app.get('/api/importArticles', async (req, res) => {
 });
 
 
-
 module.exports = app;
