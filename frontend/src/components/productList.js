@@ -22,10 +22,10 @@ const ProductList = () => {
             <ul>
                 {articles.map(article => (
                     <li key={article._id} >
-                        <h2>{article.titre}</h2>
-                        <h3>Catégorie : {article.category}</h3>
-                        <p>Prix : {article.price}</p>
-                        <img src={'http://localhost:3000/api/uploads/${article.imageUrl}'} alt={article.title} />
+                        <h2>{article.title}</h2>
+                        <h3>{article.category}</h3>
+                        <p>{article.price}</p>
+                        <img src={'http://localhost:3000/uploads/${article.imageUrl}'} alt={article.title} />
                     </li>
                 ))}
             </ul>

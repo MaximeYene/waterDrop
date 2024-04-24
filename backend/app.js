@@ -64,5 +64,20 @@ app.get('/api/importArticles', async (req, res) => {
   }
 });
 
+//Endpoint GET pour récupérer un article par son titre
+app.get('/api/getArticleByTitle', async(req,res) => {
+  try{
+    const title=req.query.title;
+    const article= await Article.findOne({title:title});
+
+    if (!article) {
+      return res.status(404).json({ message: 'Article non trouvé' });
+    }
+    res.json({ title: article.title, category: article.category, price: article.price, imageUrl: article.imageUrl });
+  }catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Erreur lors de la récupération de l\'article' }                                                                                                                                                                                                                                                                                                                                              );
+  }
+})
 
 module.exports = app;
