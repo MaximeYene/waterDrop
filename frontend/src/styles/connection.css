@@ -1,9 +1,24 @@
-.ConnectionContainer{
-    display: flex;
+.connForm{
+    margin: 0 2%;
 }
 
+.connection-container{
+    display: grid;
+    place-items: center;
+    border: 1px solid;
+}
+
+.connection-form{
+    display: flex;
+    margin: 5% 0;
+    border: 1px solid;
+}
+
+.name-container{
+    display: flex;
+}
 .ImageConnection{
-    width: 450px;
+    width: 500px;
     height: 750px;
 }
 

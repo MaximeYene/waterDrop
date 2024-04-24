@@ -16,7 +16,7 @@ const ConnForm = () => {
                 </p>
                 <form>
                     <div>
-                        <div>
+                        <div className='name-container' >
                             <div>
                                 Prénom :
                                 <input type='text' />
